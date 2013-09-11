@@ -38,7 +38,7 @@ class structure extends type_base {
      *
      * @return array the days
      */
-    public function get_days() {
+    protected function get_days() {
         $days = array();
 
         for ($i = 1; $i <= 31; $i++) {
@@ -53,7 +53,7 @@ class structure extends type_base {
      *
      * @return array the month names
      */
-    public function get_months() {
+    protected function get_months() {
         $months = array();
 
         for ($i = 1; $i <= 12; $i++) {
@@ -108,7 +108,43 @@ class structure extends type_base {
             $yearvalue++;
         }
 
+        // Reduce years from set minimum year.
+        for ($i = 0; $i < $this->minyear; $i++) {
+            unset($years[$i]);
+        }
+
+        // Reduce years from set maximum year.
+        for ($i = 2050; $i > $this->maxyear; $i--) {
+            unset($years[$i]);
+        }
+
         return $years;
+    }
+
+    /**
+     * Returns a multidimensional array with information for day, month, year
+     * and the order they are displayed when selecting a date.
+     * The order in the array will be the order displayed when selecting a date.
+     * Override this function to change the date selector order.
+     *
+     * @param int $minyear The year to start with.
+     * @param int $maxyear The year to finish with.
+     * @return array Full date information.
+     */
+    public function date_order($minyear = 0, $maxyear = 0) {
+
+        if (!empty($minyear)) {
+            $this->minyear = $minyear;
+        }
+        if (!empty($maxyear)) {
+            $this->maxyear = $maxyear;
+        }
+        $dateinfo = array();
+        $dateinfo['year'] = $this->get_years();
+        $dateinfo['month'] = $this->get_months();
+        $dateinfo['day'] = $this->get_days();
+
+        return $dateinfo;
     }
 
     /**
