@@ -20,7 +20,7 @@ use core_calendar\type_base;
 /**
  * Handles calendar functions for the japanese calendar.
  *
- * @package calendartype_gregorian
+ * @package calendartype_japanese
  * @copyright 2013 Adrian Greeve <adrian@moodle.com>
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
