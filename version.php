@@ -24,6 +24,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2013082300; // The current plugin version (Date: YYYYMMDDXX).
+$plugin->version   = 2013091200; // The current plugin version (Date: YYYYMMDDXX).
 $plugin->requires  = 2012120300; // Requires this Moodle version.
+$plugin->release   = 2013091200; // Release version (Date).
 $plugin->component = 'calendartype_japanese'; // Full name of the plugin (used for diagnostics).
