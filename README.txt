@@ -1,7 +1,7 @@
 moodle-calendartype_japanese
 ============================
 
-Japanese calendar plugin using the Emperor's reign as the year.
+Japanese calendar plug-in using the Emperor's reign as the year.
 
 Installation
 ------------
@@ -15,11 +15,11 @@ Installation
 
 2. You may need to rename the directory 'moodle-calendartype_japanese' to 'japanese'.
 
-3. As the administrator login to your Moodle instance and you should (eventually) be greated with an upgrade screen.
+3. As the administrator login to your Moodle instance and you should (eventually) be greeted with an upgrade screen.
 
 Note
 ----
-To gain full benefit from this plugin your language should be set to Japanese.
+To gain full benefit from this plug-in your language should be set to Japanese.
 
 TODO
 ----
