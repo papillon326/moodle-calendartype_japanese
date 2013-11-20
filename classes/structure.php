@@ -27,6 +27,19 @@ use core_calendar\type_base;
 class structure extends type_base {
 
     /**
+     * Returns the name of the calendar.
+     *
+     * This is the non-translated name, usually just
+     * the name of the folder.
+     *
+     * @return string the calendar name
+     */
+    public function get_name() {
+        return 'japanese';
+        thing
+    }
+
+    /**
      * Returns a list of all the possible days for all months.
      *
      * This is used to generate the select box for the days
@@ -38,7 +51,7 @@ class structure extends type_base {
      *
      * @return array the days
      */
-    protected function get_days() {
+    public function get_days() {
         $days = array();
 
         for ($i = 1; $i <= 31; $i++) {
@@ -53,7 +66,7 @@ class structure extends type_base {
      *
      * @return array the month names
      */
-    protected function get_months() {
+    public function get_months() {
         $months = array();
 
         for ($i = 1; $i <= 12; $i++) {
@@ -64,12 +77,30 @@ class structure extends type_base {
     }
 
     /**
+     * Returns the minimum year for the calendar.
+     *
+     * @return int The minimum year
+     */
+    public function get_min_year() {
+        return 1900;
+    }
+
+    /**
+     * Returns the maximum year for the calendar
+     *
+     * @return int The maximum year
+     */
+    public function get_max_year() {
+        return 2050;
+    }
+
+    /**
      * Returns a list of all of the years being used.
      * Years available 1900 - 2050 (I suspect that the unix timestamp does not extend to these dates.
      *
      * @return array the years.
      */
-    public function get_years() {
+    public function get_years($minyear = null, $maxyear = null) {
         $years = array();
 
         $yearvalue = 1900;
@@ -109,12 +140,12 @@ class structure extends type_base {
         }
 
         // Reduce years from set minimum year.
-        for ($i = 0; $i < $this->minyear; $i++) {
+        for ($i = 0; $i < $minyear; $i++) {
             unset($years[$i]);
         }
 
         // Reduce years from set maximum year.
-        for ($i = 2050; $i > $this->maxyear; $i--) {
+        for ($i = 2050; $i > $maxyear; $i--) {
             unset($years[$i]);
         }
 
@@ -131,7 +162,7 @@ class structure extends type_base {
      * @param int $maxyear The year to finish with.
      * @return array Full date information.
      */
-    public function date_order($minyear = 0, $maxyear = 0) {
+    public function get_date_order($minyear = null, $maxyear = null) {
 
         if (!empty($minyear)) {
             $this->minyear = $minyear;
@@ -140,11 +171,145 @@ class structure extends type_base {
             $this->maxyear = $maxyear;
         }
         $dateinfo = array();
-        $dateinfo['year'] = $this->get_years();
+        $dateinfo['year'] = $this->get_years($minyear, $maxyear);
         $dateinfo['month'] = $this->get_months();
         $dateinfo['day'] = $this->get_days();
 
         return $dateinfo;
+    }
+
+    /**
+     * Returns the number of days in a week.
+     *
+     * @return int the number of days
+     */
+    public function get_num_weekdays() {
+        return 7;
+    }
+
+    /**
+     * Returns the index of the starting week day.
+     *
+     * This may vary, for example some may consider Monday as the start of the week,
+     * where as others may consider Sunday the start.
+     *
+     * @return int
+     */
+    public function get_starting_weekday() {
+        global $CFG;
+
+        if (isset($CFG->calendar_startwday)) {
+            $firstday = $CFG->calendar_startwday;
+        } else {
+            $firstday = get_string('firstdayofweek', 'langconfig');
+        }
+
+        if (!is_numeric($firstday)) {
+            $startingweekday = CALENDAR_DEFAULT_STARTING_WEEKDAY;
+        } else {
+            $startingweekday = intval($firstday) % 7;
+        }
+
+        return get_user_preferences('calendar_startwday', $startingweekday);
+    }
+
+    /**
+     * Returns an indexed list of all the names of the weekdays.
+     *
+     * The list starts with the index 0. Each index, representing a
+     * day, must be an array that contains the indexes 'shortname'
+     * and 'fullname'.
+     *
+     * @return array array of days
+     */
+    public function get_weekdays() {
+        return array(
+            0 => array(
+                'shortname' => get_string('sun', 'calendar'),
+                'fullname' => get_string('sunday', 'calendar')
+            ),
+            1 => array(
+                'shortname' => get_string('mon', 'calendar'),
+                'fullname' => get_string('monday', 'calendar')
+            ),
+            2 => array(
+                'shortname' => get_string('tue', 'calendar'),
+                'fullname' => get_string('tuesday', 'calendar')
+            ),
+            3 => array(
+                'shortname' => get_string('wed', 'calendar'),
+                'fullname' => get_string('wednesday', 'calendar')
+            ),
+            4 => array(
+                'shortname' => get_string('thu', 'calendar'),
+                'fullname' => get_string('thursday', 'calendar')
+            ),
+            5 => array(
+                'shortname' => get_string('fri', 'calendar'),
+                'fullname' => get_string('friday', 'calendar')
+            ),
+            6 => array(
+                'shortname' => get_string('sat', 'calendar'),
+                'fullname' => get_string('saturday', 'calendar')
+            ),
+        );
+    }
+
+    /**
+     * Returns the index of the weekday for a specific calendar date.
+     *
+     * @param int $year
+     * @param int $month
+     * @param int $day
+     * @return int
+     */
+    public function get_weekday($year, $month, $day) {
+        return intval(date('w', mktime(12, 0, 0, $month, $day, $year)));
+    }
+
+    /**
+     * Returns the number of days in a given month.
+     *
+     * @param int $year
+     * @param int $month
+     * @return int the number of days
+     */
+    public function get_num_days_in_month($year, $month) {
+        return intval(date('t', mktime(0, 0, 0, $month, 1, $year)));
+    }
+
+    /**
+     * Get the previous month.
+     *
+     * If the current month is January, it will get the last month of the previous year.
+     *
+     * @param int $year
+     * @param int $month
+     * @return array previous month and year
+     */
+    public function get_prev_month($year, $month) {
+        if ($month == 1) {
+            return array(12, $year - 1);
+        } else {
+            return array($month - 1, $year);
+        }
+    }
+
+    /**
+     * Get the next month.
+     *
+     * If the current month is December, it will get the first month of the following year.
+     *
+     * @param int $year
+     * @param int $month
+     * @return array the following month and year
+     */
+    public function get_next_month($year, $month) {
+        if ($month == 12) {
+            return array(1, $year + 1);
+        } else {
+            return array($month + 1, $year);
+        }
     }
 
     /**
@@ -249,7 +414,7 @@ class structure extends type_base {
      *        dst offset is applied {@link http://docs.moodle.org/dev/Time_API#Timezone}
      * @return array an array that represents the date in user time
      */
-    public function timestamp_to_date_array($time, $timezone) {
+    public function timestamp_to_date_array($time, $timezone = 99) {
         return usergetdate($time, $timezone);
     }
 
@@ -301,5 +466,14 @@ class structure extends type_base {
         $date['minute'] = $minute;
 
         return $date;
+    }
+
+    /**
+     * This return locale for windows os.
+     *
+     * @return string locale
+     */
+    public function locale_win_charset() {
+        return get_string('localewincharset', 'langconfig');
     }
 }
