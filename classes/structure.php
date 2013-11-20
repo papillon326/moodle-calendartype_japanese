@@ -35,8 +35,8 @@ class structure extends type_base {
      * @return string the calendar name
      */
     public function get_name() {
-        return 'japanese';
-        thing
+        // Set to gregorian so that it will alow the use of the javascript calendar date selector.
+        return 'gregorian';
     }
 
     /**
@@ -55,7 +55,7 @@ class structure extends type_base {
         $days = array();
 
         for ($i = 1; $i <= 31; $i++) {
-            $days[$i] = $i;
+            $days[$i] = $i . get_string('day', 'calendartype_japanese');
         }
 
         return $days;
@@ -98,12 +98,14 @@ class structure extends type_base {
      * Returns a list of all of the years being used.
      * Years available 1900 - 2050 (I suspect that the unix timestamp does not extend to these dates.
      *
+     * @param int $minyear Start year.
+     * @param int $maxyear End year.
      * @return array the years.
      */
     public function get_years($minyear = null, $maxyear = null) {
         $years = array();
 
-        $yearvalue = 1900;
+        $yearvalue = $this->get_min_year();
         for ($i = 32; $i <= 43; $i++) {
             $years[$yearvalue] = get_string('meiji', 'calendartype_japanese', $i);
             $yearvalue++;
@@ -139,13 +141,22 @@ class structure extends type_base {
             $yearvalue++;
         }
 
+        // Set min and max years to defaults if not set.
+        if (is_null($minyear)) {
+            $minyear = $this->get_min_year();
+        }
+
+        if (is_null($maxyear)) {
+            $maxyear = $this->get_min_year();
+        }
+
         // Reduce years from set minimum year.
         for ($i = 0; $i < $minyear; $i++) {
             unset($years[$i]);
         }
 
         // Reduce years from set maximum year.
-        for ($i = 2050; $i > $maxyear; $i--) {
+        for ($i = $this->get_max_year(); $i > $maxyear; $i--) {
             unset($years[$i]);
         }
 
