@@ -17,6 +17,9 @@
 namespace calendartype_japanese;
 use core_calendar\type_base;
 
+define('CALENDAR_YEAR_TYPE_GREGORIAN', 0);
+define('CALENDAR_YEAR_TYPE_EMPEROR', 1);
+
 /**
  * Handles calendar functions for the japanese calendar.
  *
@@ -105,42 +108,6 @@ class structure extends type_base {
     public function get_years($minyear = null, $maxyear = null) {
         $years = array();
 
-        $yearvalue = $this->get_min_year();
-        for ($i = 32; $i <= 43; $i++) {
-            $years[$yearvalue] = get_string('meiji', 'calendartype_japanese', $i);
-            $yearvalue++;
-        }
-        $a = new \stdClass();
-        $a->old = 44;
-        $a->new = 1;
-        $years[$yearvalue] = get_string('meijihandover', 'calendartype_japanese', $a);
-        $yearvalue++;
-
-        for ($i = 2; $i <= 14; $i++) {
-            $years[$yearvalue] = get_string('taishou', 'calendartype_japanese', $i);
-            $yearvalue++;
-        }
-        $a = new \stdClass();
-        $a->old = 15;
-        $a->new = 1;
-        $years[$yearvalue] = get_string('taishouhandover', 'calendartype_japanese', $a);
-        $yearvalue++;
-
-        for ($i = 2; $i <= 63; $i++) {
-            $years[$yearvalue] = get_string('shouwa', 'calendartype_japanese', $i);
-            $yearvalue++;
-        }
-        $a = new \stdClass();
-        $a->old = 64;
-        $a->new = 1;
-        $years[$yearvalue] = get_string('shouwahandover', 'calendartype_japanese', $a);
-        $yearvalue++;
-
-        for ($i = 2; $i <= 62; $i++) {
-            $years[$yearvalue] = get_string('heisei', 'calendartype_japanese', $i);
-            $yearvalue++;
-        }
-
         // Set min and max years to defaults if not set.
         if (is_null($minyear)) {
             $minyear = $this->get_min_year();
@@ -150,14 +117,60 @@ class structure extends type_base {
             $maxyear = $this->get_min_year();
         }
 
-        // Reduce years from set minimum year.
-        for ($i = 0; $i < $minyear; $i++) {
-            unset($years[$i]);
-        }
+        $yeartype = get_config('calendartype_japanese', 'japaneseyeartype');
 
-        // Reduce years from set maximum year.
-        for ($i = $this->get_max_year(); $i > $maxyear; $i--) {
-            unset($years[$i]);
+        if ($yeartype == CALENDAR_YEAR_TYPE_EMPEROR) {
+            $yearvalue = $this->get_min_year();
+            for ($i = 32; $i <= 43; $i++) {
+                $years[$yearvalue] = get_string('meiji', 'calendartype_japanese', $i);
+                $yearvalue++;
+            }
+            $a = new \stdClass();
+            $a->old = 44;
+            $a->new = 1;
+            $years[$yearvalue] = get_string('meijihandover', 'calendartype_japanese', $a);
+            $yearvalue++;
+
+            for ($i = 2; $i <= 14; $i++) {
+                $years[$yearvalue] = get_string('taishou', 'calendartype_japanese', $i);
+                $yearvalue++;
+            }
+            $a = new \stdClass();
+            $a->old = 15;
+            $a->new = 1;
+            $years[$yearvalue] = get_string('taishouhandover', 'calendartype_japanese', $a);
+            $yearvalue++;
+
+            for ($i = 2; $i <= 63; $i++) {
+                $years[$yearvalue] = get_string('shouwa', 'calendartype_japanese', $i);
+                $yearvalue++;
+            }
+            $a = new \stdClass();
+            $a->old = 64;
+            $a->new = 1;
+            $years[$yearvalue] = get_string('shouwahandover', 'calendartype_japanese', $a);
+            $yearvalue++;
+
+            for ($i = 2; $i <= 62; $i++) {
+                $years[$yearvalue] = get_string('heisei', 'calendartype_japanese', $i);
+                $yearvalue++;
+            }
+
+            // Reduce years from set minimum year.
+            for ($i = 0; $i < $minyear; $i++) {
+                unset($years[$i]);
+            }
+
+            // Reduce years from set maximum year.
+            for ($i = $this->get_max_year(); $i > $maxyear; $i--) {
+                unset($years[$i]);
+            }
+
+        } else {
+            $years = array();
+            for ($i = $minyear; $i <= $maxyear; $i++) {
+                $years[$i] = $i . get_string('year', 'calendartype_japanese');
+            }
         }
 
         return $years;

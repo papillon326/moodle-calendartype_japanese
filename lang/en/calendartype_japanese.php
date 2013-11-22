@@ -23,7 +23,11 @@
  */
 
 $string['am'] = '午前';
+$string['configjapaneseyeartype'] = 'Select between gregorian year type or by the rule of the Emperor.';
+$string['emperor'] = 'Empiric';
+$string['gregorian'] = 'Gegorian';
 $string['heisei'] = '平成{$a}年'; 
+$string['japaneseyeartype'] = 'Japanese year type';
 $string['meiji'] = '明治{$a}年';
 $string['meijihandover'] = '明治{$a->old}年 - 大正{$a->new}年';
 $string['month'] = '{$a}月';
@@ -35,3 +39,4 @@ $string['shouwahandover'] = '昭和{$a->old}年 - 平成{$a->new}年';
 $string['taishou'] = '大正{$a}年';
 $string['taishouhandover'] = '大正{$a->old}年 - 昭和{$a->new}年';
 $string['day'] = '日';
+$string['year'] = '年';

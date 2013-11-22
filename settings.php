@@ -1,12 +1,12 @@
 <?php
-// This file is part of Advanced Spam Cleaner tool for Moodle
+// This file is part of the Japanese calendar type plugin for Moodle
 //
-// Advanced Spam Cleaner is free software: you can redistribute it and/or modify
+// The Japanese calendar type plugin is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// Advanced Spam Cleaner is distributed in the hope that it will be useful,
+// The Japanese calendar type plugin is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
@@ -23,8 +23,8 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-if ($hassiteconfig) {
-    $ADMIN->add('development', new admin_externalpage('calendartype_japanese',
-            'Japanese calendar',
-            new moodle_url('/calendar/type/japanese/index.php')));
-}
+$settings->add(new admin_setting_configselect('calendartype_japanese/japaneseyeartype',
+        new lang_string('japaneseyeartype', 'calendartype_japanese'),
+        new lang_string('configjapaneseyeartype', 'calendartype_japanese'), 0,
+        array(new lang_string('gregorian', 'calendartype_japanese'),
+              new lang_string('emperor', 'calendartype_japanese'))));
