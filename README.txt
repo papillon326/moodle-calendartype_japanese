@@ -17,6 +17,9 @@ Installation
 
 3. As the administrator login to your Moodle instance and you should (eventually) be greeted with an upgrade screen.
 
+4. Go to [Adminstration > Site administration > Plugins > Calendar types > Japanese calendar type] to change settings between
+   a Gregorian year format and an Emperor year format.
+
 Note
 ----
 To gain full benefit from this plug-in your language should be set to Japanese.
@@ -25,3 +28,4 @@ TODO
 ----
 
 [ ] Write these instructions in Japanese so that the targeted audience knows what to do.
+[ ] Update the requires version to the 2.6.1 version number.
