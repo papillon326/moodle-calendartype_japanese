@@ -422,7 +422,7 @@ class structure extends type_base {
         // Change the year if the format contains a year.
         if (preg_match('/\%Y年/', $format)) {
             $year = date_format_string($date, '%Y', $timezone);
-            $jyears = self::get_years();
+            $jyears = self::get_years(self::get_min_year(), self::get_max_year());
             $datestring = preg_replace('/\d{4}年/', $jyears[$year], $datestring);
         }
 
