@@ -22,21 +22,21 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['am'] = 'am';
+$string['am'] = '午前';
 $string['configjapaneseyeartype'] = 'Select between gregorian year type or by the rule of the Emperor.';
-$string['emperor'] = 'Empiric';
-$string['gregorian'] = 'Gegorian';
-$string['heisei'] = 'Heisei year {$a}';
-$string['japaneseyeartype'] = 'Japanese year type';
-$string['meiji'] = 'Meiji year {$a}';
-$string['meijihandover'] = 'Meiji year {$a->old} - Taishou year {$a->new}';
-$string['month'] = '{$a}';
+$string['emperor'] = '年号';
+$string['gregorian'] = 'グレゴリオ暦の';
+$string['heisei'] = '平成{$a}年'; 
+$string['japaneseyeartype'] = '日本の年のタイプ';
+$string['meiji'] = '明治{$a}年';
+$string['meijihandover'] = '明治{$a->old}年 - 大正{$a->new}年';
+$string['month'] = '{$a}月';
 $string['name'] = 'Japanese';
-$string['pluginname'] = 'Japanese calendar type';
-$string['pm'] = 'pm';
-$string['shouwa'] = 'Shouwa year {$a}';
-$string['shouwahandover'] = 'Shouwa year {$a->old} - Heisei year {$a->new}';
-$string['taishou'] = 'Taishou year {$a}';
-$string['taishouhandover'] = 'Taishou year {$a->old} - Shouwa year {$a->new}';
-$string['day'] = '';
-$string['year'] = 'year';
+$string['pluginname'] = '日本の暦ののタイプ';
+$string['pm'] = '午後';
+$string['shouwa'] = '昭和{$a}年';
+$string['shouwahandover'] = '昭和{$a->old}年 - 平成{$a->new}年';
+$string['taishou'] = '大正{$a}年';
+$string['taishouhandover'] = '大正{$a->old}年 - 昭和{$a->new}年';
+$string['day'] = '日';
+$string['year'] = '年';
