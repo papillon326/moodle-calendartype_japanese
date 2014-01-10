@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'calendartype_japanese', language 'en'.
+ * Strings for component 'calendartype_japanese', language 'ja'.
  *
  * @package calendartype_japanese
  * @copyright 2013 Adrian Greeve <adrian@moodle.com>
@@ -23,7 +23,7 @@
  */
 
 $string['am'] = '午前';
-$string['configjapaneseyeartype'] = 'Select between gregorian year type or by the rule of the Emperor.';
+$string['configjapaneseyeartype'] = 'グレゴリオ年式の間、または天皇の規定によりを選択します。';
 $string['emperor'] = '年号';
 $string['gregorian'] = 'グレゴリオ暦の';
 $string['heisei'] = '平成{$a}年'; 
