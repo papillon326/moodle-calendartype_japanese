@@ -392,7 +392,9 @@ class structure extends type_base {
             $date += dst_offset_on($date, $timezone);
         }
 
-        $timezone = get_user_timezone_offset($timezone);
+        $tz = \core_date::get_user_timezone($timezone);
+        $tdate = new \DateTime('now', new \DateTimeZone($tz));
+        $timezone = ($tdate->getOffset() - dst_offset_on(time(), $tz)) / (3600.0);
 
         // If we are running under Windows convert to windows encoding and then back to UTF-8
         // (because it's impossible to specify UTF-8 to fetch locale info in Win32).
