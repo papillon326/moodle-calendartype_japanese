@@ -23,16 +23,16 @@
  */
 
 $string['am'] = '午前';
-$string['configjapaneseyeartype'] = 'グレゴリオ年式の間、または天皇の規定によりを選択します。';
+$string['configjapaneseyeartype'] = '西暦、または和暦を選択します。';
 $string['emperor'] = '年号';
-$string['gregorian'] = 'グレゴリオ暦の';
+$string['gregorian'] = '西暦';
 $string['heisei'] = '平成{$a}年'; 
-$string['japaneseyeartype'] = '日本の年のタイプ';
+$string['japanesecalendartype'] = '和暦';
 $string['meiji'] = '明治{$a}年';
 $string['meijihandover'] = '明治{$a->old}年 - 大正{$a->new}年';
 $string['month'] = '{$a}月';
 $string['name'] = 'Japanese';
-$string['pluginname'] = '日本の暦ののタイプ';
+$string['pluginname'] = '日本の暦';
 $string['pm'] = '午後';
 $string['shouwa'] = '昭和{$a}年';
 $string['shouwahandover'] = '昭和{$a->old}年 - 平成{$a->new}年';
