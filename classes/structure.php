@@ -409,7 +409,6 @@ class structure extends type_base {
                 $datestring = str_replace('HH', $hourstring, $datestring);
             }
         } else {
-            $date += (int)($timezone * 3600);
             $datestring = date_format_string($date, $format, $timezone);
             if ($fixday) {
                 $daystring  = ltrim(str_replace(array(' 0', ' '), '', gmstrftime(' %d', $date)));
